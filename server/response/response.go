@@ -2,6 +2,7 @@ package response
 
 import (
 	"encoding/json"
+	"fmt"
 	"net/http"
 )
 
@@ -47,6 +48,11 @@ func ValidationError(w http.ResponseWriter, details map[string]string) {
 		Message: "Validation failed",
 		Details: details,
 	})
+}
+
+func IDNotFound(w http.ResponseWriter, id string) {
+	errString := fmt.Sprintf("Can`t find item with id: %s", id)
+	Error(w, http.StatusNotFound, errString)
 }
 
 func Success(w http.ResponseWriter, status int, data interface{}) {

@@ -2,6 +2,7 @@ package main
 
 import (
 	"log"
+	"status-page-monitor/check"
 	"status-page-monitor/internal/database"
 	"status-page-monitor/internal/env"
 	"status-page-monitor/server/router"
@@ -17,6 +18,8 @@ func main() {
 	if err := database.Migrate(); err != nil {
 		log.Fatal("Migration failed:", err)
 	}
+
+	go check.InitCheckers()
 
 	router.InitRouter()
 
